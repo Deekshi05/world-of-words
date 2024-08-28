@@ -1,0 +1,221 @@
+/* Reset Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Body Styles */
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #ecf0f1;
+}
+
+/* Container Styles */
+.container {
+    background: rgba(0, 0, 0, 0.75);
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Heading Styles */
+.container h1 {
+    font-size: 36px;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* Guess Area Styles */
+#guess-area {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+/* Letter Box Styles */
+.letter-box {
+    width: 50px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 5px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: transform 0.2s;
+}
+
+.letter-box input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    text-align: center;
+    font-size: 32px;
+    color: #ecf0f1;
+    text-transform: uppercase;
+    outline: none;
+    cursor: pointer;
+}
+
+.letter-box.correct {
+    background: rgba(46, 204, 113, 0.8);
+    animation: pulse 0.5s;
+}
+
+.letter-box.wrong {
+    background: rgba(231, 76, 60, 0.8);
+    animation: shake 0.5s;
+}
+
+/* Controls Styles */
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.controls button {
+    padding: 10px 20px;
+    font-size: 18px;
+    color: #ecf0f1;
+    background: #2980b9;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.controls button:hover {
+    background: #3498db;
+    transform: scale(1.05);
+}
+
+.controls button:active {
+    transform: scale(0.95);
+}
+
+/* Hint Area Styles */
+#hint-area {
+    font-size: 20px;
+    margin-bottom: 20px;
+    min-height: 24px;
+    transition: opacity 0.3s;
+}
+
+/* Player Info Styles */
+#player-info {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+#player1-info, #player2-info {
+    font-size: 18px;
+}
+
+/* Message Area Styles */
+#message-area {
+    font-size: 22px;
+    font-weight: bold;
+    min-height: 28px;
+    transition: opacity 0.3s;
+}
+
+/* Difficulty Buttons Styles */
+.difficulty-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.difficulty-buttons button {
+    padding: 10px 20px;
+    font-size: 18px;
+    color: #ecf0f1;
+    background: #2980b9;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.difficulty-buttons button:hover {
+    background: #3498db;
+    transform: scale(1.05);
+}
+
+.difficulty-buttons button:active {
+    transform: scale(0.95);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
+/* Responsive Styles */
+@media (max-width: 500px) {
+    .letter-box {
+        width: 40px;
+        height: 50px;
+        margin: 4px;
+    }
+
+    .letter-box input {
+        font-size: 24px;
+    }
+
+    .controls button {
+        padding: 8px 16px;
+        font-size: 16px;
+    }
+
+    .difficulty-buttons button {
+        padding: 8px 16px;
+        font-size: 16px;
+    }
+}

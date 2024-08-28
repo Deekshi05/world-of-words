@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Guessing Game - Multiplayer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Word Guessing Game - Multiplayer</h1>
+        <div id="guess-area"></div>
+        <div class="controls">
+            <button class="hint-button" onclick="showHint()">Show Hint</button>
+            <button class="reset-button" onclick="resetGame()">Reset Game</button>
+        </div>
+        <div id="hint-area"></div>
+        <div id="player-info">
+            <div id="player1-info">
+                <p>Player 1 Attempts Left: <span id="player1-attempts-count">5</span></p>
+                <p>Player 1 Score: <span id="player1-score">0</span></p>
+            </div>
+            <div id="player2-info">
+                <p>Player 2 Attempts Left: <span id="player2-attempts-count">5</span></p>
+                <p>Player 2 Score: <span id="player2-score">0</span></p>
+            </div>
+        </div>
+        <div id="timer">Loading...</div> <!-- Timer Display -->
+        <div id="message-area"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
