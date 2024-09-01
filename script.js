@@ -5,25 +5,24 @@ let attemptsLeftPlayer2;
 let scorePlayer1 = 0;
 let scorePlayer2 = 0;
 let currentPlayer = 1;
-let timerDuration = 60; // Default timer duration in seconds
+let timerDuration = 60; 
 let timer;
 let timerDisplay;
 let revealsize = 3;
 let revealhint = true;
 
-// Initialize Game on Window Load
 window.onload = () => {
     timerDisplay = document.getElementById('timer');
     initializeGame();
 };
 
-// Set Difficulty and Redirect to Index
+
 function setDifficulty(difficulty) {
     localStorage.setItem('difficulty', difficulty);
     window.location.href = 'index.html';
 }
 
-// Function to Initialize Game
+
 async function initializeGame() {
     scorePlayer1 = 0;
 scorePlayer2 = 0;
@@ -31,23 +30,23 @@ scorePlayer2 = 0;
     const difficulty = localStorage.getItem('difficulty') || 'easy';
     setDifficultySettings(difficulty);
 
-    // Reset attempts and scores
+  
     attemptsLeftPlayer1 = maxAttempts;
     attemptsLeftPlayer2 = maxAttempts;
     updatePlayerStats();
 
-    // Fetch a word and hint from API
+    
     selectedWordObj = await fetchWord();
     const word = selectedWordObj.word.toUpperCase();
     const wordLength = word.length;
     
-    // Generate letter boxes
+   
     generateLetterBoxes(word, wordLength);
 
-    startTimer(); // Start the timer for the first player
+    startTimer(); 
 }
 
-// Function to Set Difficulty Settings
+
 function setDifficultySettings(difficulty) {
     if (difficulty === 'easy') {
         revealsize = 3;
@@ -61,7 +60,7 @@ function setDifficultySettings(difficulty) {
     }
 }
 
-// Fetch Word and Hint from API
+
 async function fetchWord() {
     let wordFound = false;
     let word = '';
@@ -69,21 +68,21 @@ async function fetchWord() {
 
     while (!wordFound) {
         try {
-            // Fetch a random word from the Random Word API
+           
             const randomWordResponse = await fetch('https://random-word-api.herokuapp.com/word?number=1');
             if (!randomWordResponse.ok) throw new Error('Failed to fetch word');
             const randomWordData = await randomWordResponse.json();
             word = randomWordData[0].toUpperCase();
 
-            // Fetch the definition of the random word from the Dictionary API
+            
             const definitionResponse = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
             if (!definitionResponse.ok) throw new Error('Failed to fetch definition');
             const definitionData = await definitionResponse.json();
 
-            // Check if the structure contains a valid definition
+            
             hint = definitionData[0]?.meanings?.[0]?.definitions?.[0]?.definition || null;
 
-            // If hint is available, break the loop
+            
             if (hint) {
                 wordFound = true;
             } else {
@@ -94,14 +93,14 @@ async function fetchWord() {
         }
     }
 
-    // Return the word and hint (or a message if no hint is available)
+    
     return {
         word,
         hint: revealhint ? hint : 'No hint available.'
     };
 }
 
-// Generate Letter Boxes
+
 function generateLetterBoxes(word, wordLength) {
     const revealedIndices = new Set();
     while (revealedIndices.size < Math.min(revealsize, wordLength)) {
@@ -133,7 +132,7 @@ function generateLetterBoxes(word, wordLength) {
     }
 }
 
-// Handle Input in Letter Boxes
+
 function handleInput(e) {
     const input = e.target;
     input.value = input.value.toUpperCase();
@@ -155,11 +154,11 @@ function handleInput(e) {
         decreaseAttempts();
     }
 
-    // Move to the next input field regardless of whether the input is correct or wrong
+    
     moveToNextInput(index);
 }
 
-// Move Focus to Next Input Field
+
 function moveToNextInput(currentIndex) {
     const inputs = document.querySelectorAll('.letter-box input');
     for (let i = currentIndex + 1; i < inputs.length; i++) {
@@ -171,7 +170,7 @@ function moveToNextInput(currentIndex) {
 }
 
 
-// Update Player Stats
+
 function updatePlayerStats() {
     document.getElementById('player1-attempts-count').innerText = attemptsLeftPlayer1;
     document.getElementById('player2-attempts-count').innerText = attemptsLeftPlayer2;
@@ -181,7 +180,7 @@ function updatePlayerStats() {
     document.getElementById('message-area').innerText = '';
 }
 
-// Decrease Attempts and Check for Game Over
+
 function decreaseAttempts() {
     if (currentPlayer === 1) {
         attemptsLeftPlayer1--;
@@ -199,13 +198,13 @@ function decreaseAttempts() {
     switchPlayer();
 }
 
-// Switch Player Turn
+
 function switchPlayer() {
     currentPlayer = currentPlayer === 1 ? 2 : 1;
-    startTimer(); // Restart the timer for the next player
+    startTimer(); 
 }
 
-// Update Score for Correct Guess
+
 function updateScore() {
     if (currentPlayer === 1) {
         scorePlayer1+=10;
@@ -216,7 +215,7 @@ function updateScore() {
     }
 }
 
-// Check Win Condition
+
 function checkWinCondition() {
     const inputs = document.querySelectorAll('.letter-box input');
     const allCorrect = Array.from(inputs).every(input => input.disabled);
@@ -225,9 +224,9 @@ function checkWinCondition() {
     }
 }
 
-// End Game with Win or Lose Message
+
 function endGame(win) {
-    clearInterval(timer); // Stop the timer
+    clearInterval(timer); 
     const messageArea = document.getElementById('message-area');
     if (win) {
         const winner = scorePlayer1 > scorePlayer2 ? 'Player 1' : 'Player 2';
@@ -240,27 +239,27 @@ function endGame(win) {
     }
 }
 
-// Disable All Input Fields
+
 function disableAllInputs() {
     const inputs = document.querySelectorAll('.letter-box input');
     inputs.forEach(input => input.disabled = true);
 }
 
-// Show Hint
+
 function showHint() {
     document.getElementById('hint-area').innerText = selectedWordObj.hint;
 }
 
-// Reset Game
+/
 function resetGame() {
-    clearInterval(timer); // Stop any existing timer
+    clearInterval(timer); 
     initializeGame();
 
 }
 
-// Start Timer
+
 function startTimer() {
-    clearInterval(timer); // Clear any existing timer
+    clearInterval(timer); 
     let timeLeft = timerDuration;
     timerDisplay.innerText = timeLeft;
 
@@ -270,7 +269,7 @@ function startTimer() {
 
         if (timeLeft <= 0) {
             clearInterval(timer);
-            decreaseAttempts(); // Automatically decrease attempts if time runs out
+            decreaseAttempts(); 
         }
     }, 1000);
 }
